@@ -1,8 +1,8 @@
-import { PrismaClient } from "@prisma/client";
+import { createPrismaClient } from "../common/prisma";
 
-const prisma = new PrismaClient();
+const prisma = createPrismaClient();
 
-exports.handler = async (event, context, callback) => {
+export const handler = async (event, context, callback) => {
   try {
     const posts = await prisma.post.findMany({
       include: { author: true },

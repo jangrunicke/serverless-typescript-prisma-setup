@@ -1,7 +1,9 @@
-import { Prisma, PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import { Prisma } from "@prisma/client";
+import { createPrismaClient } from "../common/prisma";
 
-exports.handler = async (event, context, callback) => {
+const prisma = createPrismaClient();
+
+export const handler = async (event, context, callback) => {
   try {
     const data = JSON.parse(event.body);
     const createdUser = await prisma.user.create({ data });

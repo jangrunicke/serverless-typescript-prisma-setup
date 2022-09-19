@@ -38,11 +38,5 @@ module.exports = {
     filename: "[name].js",
     path: path.resolve(__dirname, ".webpack"),
   },
-  plugins: [
-    new ForkTsCheckerWebpackPlugin({
-      typescript: {
-        memoryLimit: 5000,
-      },
-    }),
-  ],
+  plugins: [new ForkTsCheckerWebpackPlugin()],
 };

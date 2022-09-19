@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-exports.handler = async (event, context, callback) => {
+export const handler = async (event, context, callback) => {
   try {
     const users = await prisma.user.findMany({
       include: { profile: true },
