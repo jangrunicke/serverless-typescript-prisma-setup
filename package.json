@@ -3,6 +3,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
+    "deploy": "serverless deploy",
     "prisma:introspect": "prisma introspect",
     "prisma:generate": "prisma generate"
   },
