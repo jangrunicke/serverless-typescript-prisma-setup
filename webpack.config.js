@@ -2,6 +2,8 @@
 const path = require("path");
 const nodeExternals = require("webpack-node-externals");
 const slsw = require("serverless-webpack");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+
 const { isLocal } = slsw.lib.webpack;
 
 module.exports = {
@@ -11,13 +13,23 @@ module.exports = {
   externals: [nodeExternals()],
   mode: isLocal ? "development" : "production",
   optimization: { concatenateModules: false },
-  resolve: { extensions: [".js", ".ts"] },
+  resolve: { extensions: [".js", ".json", ".ts"] },
+
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        loader: "ts-loader",
+        // Include ts, tsx, js, and jsx files.
+        test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
+        use: [
+          {
+            loader: "cache-loader",
+            options: {
+              cacheDirectory: path.resolve(".webpackCache"),
+            },
+          },
+          "babel-loader",
+        ],
       },
     ],
   },
@@ -26,4 +38,11 @@ module.exports = {
     filename: "[name].js",
     path: path.resolve(__dirname, ".webpack"),
   },
+  plugins: [
+    new ForkTsCheckerWebpackPlugin({
+      typescript: {
+        memoryLimit: 5000,
+      },
+    }),
+  ],
 };

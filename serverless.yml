@@ -1,4 +1,7 @@
 service: prisma-aws-lambda-example
+package:
+  individually: true
+
 plugins:
   - serverless-webpack
   - serverless-webpack-prisma
@@ -6,7 +9,10 @@ plugins:
 
 custom:
   webpack:
-    includeModules: true
+    webpackConfig: "webpack.config.js" # Name of webpack configuration file
+    includeModules: true # Node modules configuration for packaging
+    packager: "yarn" # Packager that will be used to package your external modules
+    excludeFiles: src/**/*.test.js # Pro
 
 provider:
   name: aws
@@ -16,32 +22,32 @@ provider:
 
 functions:
   status:
-    handler: handlers/status.handler
+    handler: src/handlers/status.handler
     events:
       - http:
           method: GET
           path: /
   seed:
-    handler: handlers/seed.handler
+    handler: src/handlers/seed.handler
     timeout: 15
     events:
       - http:
           method: GET
           path: /seed
   getUsers:
-    handler: handlers/users.handler
+    handler: src/handlers/users.handler
     events:
       - http:
           method: GET
           path: /users
   createUser:
-    handler: handlers/create-user.handler
+    handler: src/handlers/create-user.handler
     events:
       - http:
           method: POST
           path: /users
   getPosts:
-    handler: handlers/posts.handler
+    handler: src/handlers/posts.handler
     events:
       - http:
           method: GET
