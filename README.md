@@ -1,12 +1,11 @@
-# AWS Lambda deployment example
+# Setup project for serverless with prisma and typescript
+
+## Prisma Documentation: AWS Lambda deployment example
 
 [Deployment Guide](https://www.prisma.io/docs/guides/deployment/deploying-to-aws-lambda)
 
-## Download manually
+## Database Connection
 
-```bash
-curl https://codeload.github.com/prisma/prisma-examples/tar.gz/latest | tar -xz --strip=2 prisma-examples-latest/deployment-platforms/aws-lambda
-cd aws-lambda
-```
+To make this work you have to create a .env file and insert your database connection string like so:
 
-The Serverless configuration file includes a package pattern that excludes all Prisma Engine binaries but the one relevant for the Lambda runtime. You can read more in our [documentation](https://www.prisma.io/docs/guides/deployment/deployment-guides/deploying-to-aws-lambda#package-pattern-in-serverlessyml).
+`DATABASE_URL="postgresql://__USER__:__PASSWORD__@__HOST__/__DATABASE__"`
