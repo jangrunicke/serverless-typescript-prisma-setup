@@ -1,6 +1,12 @@
 service: prisma-aws-lambda-example
 plugins:
+  - serverless-webpack
+  - serverless-webpack-prisma
   - serverless-dotenv-plugin
+
+custom:
+  webpack:
+    includeModules: true
 
 provider:
   name: aws
@@ -40,11 +46,3 @@ functions:
       - http:
           method: GET
           path: /posts
-
-# only include the Prisma binary required on AWS Lambda while packaging
-package:
-  patterns:
-    - "!node_modules/.prisma/client/libquery_engine-*"
-    - "node_modules/.prisma/client/libquery_engine-rhel-*"
-    - "!node_modules/prisma/libquery_engine-*"
-    - "!node_modules/@prisma/engines/**"
